@@ -1,5 +1,4 @@
 defmodule Commander do
-
   alias Commander.State
   alias Commander.Help
 
@@ -30,12 +29,21 @@ defmodule Commander do
   @spec parse(State.t, [String.t]) :: {:ok, parse_result} | {:error, String.t}
   def parse(commander, args) do
     opts = [strict: commander.switches, aliases: commander.aliases]
-    case OptionParser.parse(args, opts) do
-      {result, _, []} ->
+    case OptionParser.parse(args, opts) |> missing_switches(commander) do
+      {result, [], []} ->
         {:ok, result |> result_add_defaults(commander)}
-      {_, _, invalid} ->
+      {_, [], missing} ->
+        {:error, Help.build_missing_options(missing)}
+      {_, invalid, _} ->
         {:error, Help.build_invalid_options(invalid)}
     end
+  end
+
+  defp missing_switches({result, _args, invalid}, state) do
+    missing = state.required |> Enum.filter(fn r ->
+      !(Keyword.has_key?(result, r))
+    end)
+    {result, invalid, missing}
   end
 
   @spec result_add_defaults(parse_result, State.t) :: parse_result

@@ -15,6 +15,11 @@ defmodule Commander.Help do
     "Unknown options: #{Enum.join(invalid, " ")}"
   end
 
+  @spec build_missing_options([atom()]) :: String.t
+  def build_missing_options(missing) do
+    "Missing required options: #{Enum.join(missing, " ")}"
+  end
+
   defp build_description(state) do
     "#{state.app_name} - #{state.app_description}"
   end
@@ -23,7 +28,8 @@ defmodule Commander.Help do
     arguments = state.descriptions
     |> Enum.map(fn {switch, desc} ->
       aliases = ["--#{switch}"] ++ aliases_for(state, switch)
-      "  #{Enum.join(aliases, ", ")} - #{desc}"
+
+      "  #{Enum.join(aliases, ", ")} : #{required(state, switch)}#{desc}#{default(state, switch)}"
     end)
     |> Enum.join("\n")
 
@@ -38,5 +44,21 @@ defmodule Commander.Help do
     state.aliases
     |> Enum.filter(fn {_, sw} -> sw == switch end)
     |> Enum.map(fn {al, _} -> "-#{al}" end)
+  end
+
+  defp required(state, switch) do
+    if state.required |> Enum.member?(switch) do
+      "(Required) "
+    else
+      ""
+    end
+  end
+
+  defp default(state, switch) do
+    if state.defaults |> Keyword.has_key?(switch) do
+      " (Default: #{inspect Keyword.get(state.defaults, switch)})"
+    else
+      ""
+    end
   end
 end
