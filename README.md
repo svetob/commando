@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/svetob/commander.svg?branch=master)](https://travis-ci.org/svetob/commander)
+
 # Commander
 
 __Commander__ is a command line parser which uses OptionParser behind-the-hood
