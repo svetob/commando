@@ -154,9 +154,9 @@ defmodule Commander do
   @spec parse(State.t, [String.t]) :: {:ok, parse_result} | :help | {:error, String.t}
   def parse(commander, args) do
     opts = [strict: commander.switches, aliases: commander.aliases]
-    case OptionParser.parse(args, opts)
-           |> missing_switches(commander)
-           |> check_help_flag() do
+    case args |> OptionParser.parse(opts)
+              |> missing_switches(commander)
+              |> check_help_flag() do
       :help ->
         {:help, help_message(commander)}
       {result, [], []} ->

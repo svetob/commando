@@ -19,7 +19,8 @@ defmodule Commander.Mixfile do
   defp deps do
     [
       {:dialyxir, "~> 0.4", only: :dev, runtime: false},
-      {:ex_doc, "~> 0.11", only: :dev, runtime: false}
+      {:ex_doc, "~> 0.11", only: :dev, runtime: false},
+      {:credo, ">= 0.0.0", only: :dev, runtime: false}
     ]
   end
 
