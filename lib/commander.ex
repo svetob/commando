@@ -190,7 +190,7 @@ defmodule Commander do
       ...>  Commander.with_help() |>
       ...>  Commander.with_switch(:path, :string, "Some path", required: true, alias: :p, default: "path") |>
       ...>  Commander.help_message()
-      "demo - Short demo app\n\nArguments:\n  --path, -p : (Required) Some path (Default: \"path\")\n  --help : Print help message\n\nExample: mix run"
+      "demo - Short demo app\n\nArguments:\n  --path, -p : (Required) Some path (Default: \"path\")\n  --help, -h : Print help message\n\nExample: mix run"
   """
   @spec help_message(State.t) :: String.t
   def help_message(commander) do
