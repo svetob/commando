@@ -1,9 +1,12 @@
 defmodule Commander.State do
   alias Commander.State
 
-  @type switch_type :: :boolean | :count | :integer | :float | :string
-  @type conf_list :: [{atom(), any()}]
-  @typep switch :: {atom(), switch_type}
+  @moduledoc """
+  Internal Commander state.
+  """
+
+
+  @typep switch :: {atom(), Commander.switch_type}
   @typep switch_alias :: {atom(), atom()}
 
   @type t :: %__MODULE__{app_name: String.t,
@@ -24,7 +27,7 @@ defmodule Commander.State do
             aliases: [],
             required: []
 
-  @spec add_switch(t, atom(), switch_type) :: t
+  @spec add_switch(t, atom(), Commander.switch_type) :: t
   def add_switch(state, switch, type) do
     %State{state | switches: state.switches |> Keyword.put(switch, type)}
   end
@@ -38,9 +41,8 @@ defmodule Commander.State do
     %State{state | defaults: state.defaults |> Keyword.put(switch, default)}
   end
 
-  def add_aliases(state, switch, aliases) do
-    switch_aliases = aliases |> Enum.map(fn a -> {a, switch} end)
-    %State{state | aliases: state.aliases ++ switch_aliases}
+  def add_alias(state, switch, switch_alias) do
+    %State{state | aliases: state.aliases |> Keyword.put(switch_alias, switch)}
   end
 
   def add_required(state, switch) do

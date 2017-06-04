@@ -1,6 +1,9 @@
 defmodule Commander.Help do
   alias Commander.State
 
+  @moduledoc """
+  Help message builders.
+  """
 
   @spec build_help(State.t) :: String.t
   def build_help(state) do
