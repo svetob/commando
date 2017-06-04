@@ -1,8 +1,8 @@
-[![Build Status](https://travis-ci.org/svetob/commander.svg?branch=master)](https://travis-ci.org/svetob/commander)
+[![Build Status](https://travis-ci.org/svetob/commando.svg?branch=master)](https://travis-ci.org/svetob/commando)
 
-# Commander
+# Commando
 
-__Commander__ is a command line parser which uses OptionParser behind-the-hood
+__Commando__ is a command line parser which uses OptionParser behind-the-hood
 and extends it with:
 
   - Simple and informative help messages
@@ -12,11 +12,11 @@ and extends it with:
 
 ## Usage
 
-Add `commander` as a dependency to your `mix.exs` file:
+Add `commando` as a dependency to your `mix.exs` file:
 
 ```
 defp deps do
-  [{:commander, "~> 0.1"}]
+  [{:commando, "~> 0.1"}]
 end
 ```
 
@@ -26,19 +26,19 @@ Then run `mix deps.get` to download it.
 
 `example.exs`:
 ```Elixir
-c = Commander.create("example app", "An example application", "mix run example.exs")
-  |> Commander.with_help()
-  |> Commander.with_switch(:port, :integer, "HTTP port", required: true, alias: :p)
-  |> Commander.with_switch(:data_path, :string, "Data path", default: "data/", alias: :d)
+c = Commando.create("example app", "An example application", "mix run example.exs")
+  |> Commando.with_help()
+  |> Commando.with_switch(:port, :integer, "HTTP port", required: true, alias: :p)
+  |> Commando.with_switch(:data_path, :string, "Data path", default: "data/", alias: :d)
 
-case Commander.parse(c, System.argv()) do
+case Commando.parse(c, System.argv()) do
   {:ok, result} ->
       IO.inspect result
   {:help, message} ->
     IO.puts message
   {:error, reason} ->
     IO.puts reason
-    IO.puts Commander.help_message(c)
+    IO.puts Commando.help_message(c)
 end
 ```
 

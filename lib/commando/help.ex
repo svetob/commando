@@ -1,5 +1,5 @@
-defmodule Commander.Help do
-  alias Commander.State
+defmodule Commando.Help do
+  alias Commando.State
 
   @moduledoc """
   Help message builders.

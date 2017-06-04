@@ -1,8 +1,8 @@
-defmodule Commander.Mixfile do
+defmodule Commando.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :commander,
+    [app: :commando,
      version: "0.1.0",
      elixir: "~> 1.4",
      description: description(),
@@ -33,10 +33,10 @@ defmodule Commander.Mixfile do
 
   defp package do
     [
-      name: :commander,
+      name: :commando,
       maintainers: ["Tobias Ara Svensson"],
       licenses: ["MIT"],
-      links: %{"Github" => "https://github.com/svetob/commander"},
+      links: %{"Github" => "https://github.com/svetob/commando"},
     ]
   end
 end

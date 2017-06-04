@@ -1,12 +1,12 @@
-defmodule Commander.State do
-  alias Commander.State
+defmodule Commando.State do
+  alias Commando.State
 
   @moduledoc """
-  Internal Commander state.
+  Internal Commando state.
   """
 
 
-  @typep switch :: {atom(), Commander.switch_type}
+  @typep switch :: {atom(), Commando.switch_type}
   @typep switch_alias :: {atom(), atom()}
 
   @type t :: %__MODULE__{app_name: String.t,
@@ -27,7 +27,7 @@ defmodule Commander.State do
             aliases: [],
             required: []
 
-  @spec add_switch(t, atom(), Commander.switch_type) :: t
+  @spec add_switch(t, atom(), Commando.switch_type) :: t
   def add_switch(state, switch, type) do
     %State{state | switches: state.switches |> Keyword.put(switch, type)}
   end
